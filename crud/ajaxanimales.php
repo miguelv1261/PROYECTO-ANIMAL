@@ -39,9 +39,11 @@ if (isset($_POST["action"])) {
     //VER ANIMAL
     if ($_POST["action"] == "veranimal") {
         $id = $db->sanitize($_POST["id"]);
-        $conn = $db->dameQuery("SELECT * FROM animales WHERE id_animal = '$id' LIMIT 1");
-        $datos = mysqli_fetch_assoc($conn);
-?>
+        $datos = $db->dameQuery("SELECT * FROM animales WHERE id_animal = '$id' LIMIT 1");
+        $historial = $db->dameQuery("SELECT * FROM trazabilidad_animal WHERE id_animal = '$id' ORDER BY fecha_evento DESC");
+
+        $datos = mysqli_fetch_assoc($datos);
+        ?>
         <div class="modal fade" id="Modal-in" tabindex="-1" aria-labelledby="ModalInLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content shadow-lg border-0">
@@ -116,17 +118,41 @@ if (isset($_POST["action"])) {
                                 </div>
                             </div>
                         <?php endif; ?>
+                        <?php if (!empty($historial)): ?>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        <i class="fas fa-history me-1 text-success"></i> Historial del Animal
+                                    </label>
+                                    <div class="border rounded p-3 bg-light" style="max-height: 300px; overflow-y: auto;">
+                                        <?php foreach ($historial as $evento): ?>
+                                            <div class="mb-2">
+                                                <strong><?php echo date("d/m/Y", strtotime($evento["fecha_evento"])); ?>:</strong>
+                                                <span><?php echo htmlspecialchars($evento["tipo_evento"]); ?></span><br>
+                                                <small
+                                                    class="text-muted"><?php echo nl2br(htmlspecialchars($evento["descripcion_evento"])); ?></small>
+                                            </div>
+                                            <hr>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
                 </div>
             </div>
         </div>
 
-    <?php
+        <?php
         exit;
     }
+    //NUEVO ANIMAL
+    if ($_POST["action"] == "nuevoanimal") {
+
+    }
     //CRUD EDITAR
-   if ($_POST["action"] == "edit_animales") {
+    if ($_POST["action"] == "edit_animales") {
         $id = $db->sanitize($_POST["id_animal"]);
         $nombre = $db->sanitize($_POST["nombre"]);
         $edad = $db->sanitize($_POST["edad"]);
@@ -150,7 +176,7 @@ if (isset($_POST["action"])) {
         $id = $db->sanitize($_POST["id"]);
         $conn = $db->dameQuery("SELECT * FROM animales WHERE id_animal = '$id' LIMIT 1");
         $datos = mysqli_fetch_assoc($conn);
-    ?>
+        ?>
         <div class="modal fade" id="Modal-edit" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <form id="form-edit-animal">
@@ -174,7 +200,8 @@ if (isset($_POST["action"])) {
                                 <div class="col-md-8">
                                     <div class="row g-3">
                                         <div class="col-md-6">
-                                            <label class="form-label"><i class="fas fa-dog me-1 text-primary"></i> Nombre</label>
+                                            <label class="form-label"><i class="fas fa-dog me-1 text-primary"></i>
+                                                Nombre</label>
                                             <input class="form-control" name="nombre" id="nombre" type="text"
                                                 value="<?php echo $datos["nombre"]; ?>">
                                         </div>
@@ -182,11 +209,13 @@ if (isset($_POST["action"])) {
                                         <div class="col-md-6">
                                             <label class="form-label"><i class="fas fa-hourglass-half me-1 text-primary"></i>
                                                 Edad</label>
-                                            <input class="form-control" name="edad" id="edad" type="text" value="<?php echo $datos["edad"]; ?>">
+                                            <input class="form-control" name="edad" id="edad" type="text"
+                                                value="<?php echo $datos["edad"]; ?>">
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="form-label"><i class="fas fa-palette me-1 text-primary"></i> Color</label>
+                                            <label class="form-label"><i class="fas fa-palette me-1 text-primary"></i>
+                                                Color</label>
                                             <input class="form-control" name="color" id="color" type="text"
                                                 value="<?php echo $datos["color"]; ?>">
                                         </div>
@@ -194,11 +223,13 @@ if (isset($_POST["action"])) {
                                         <div class="col-md-6">
                                             <label class="form-label"><i class="fas fa-venus-mars me-1 text-primary"></i>
                                                 Sexo</label>
-                                            <input class="form-control" name="sexo" id="sexo" type="text" value="<?php echo $datos["sexo"]; ?>">
+                                            <input class="form-control" name="sexo" id="sexo" type="text"
+                                                value="<?php echo $datos["sexo"]; ?>">
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="form-label"><i class="fas fa-heartbeat me-1 text-primary"></i> Estado de
+                                            <label class="form-label"><i class="fas fa-heartbeat me-1 text-primary"></i> Estado
+                                                de
                                                 Salud</label>
                                             <input class="form-control" name="estado_salud" id="estado_salud" type="text"
                                                 value="<?php echo $datos["estado_salud"]; ?>">
@@ -233,7 +264,7 @@ if (isset($_POST["action"])) {
         </div>
         </div>
         <script>
-            $(document).on("submit", "#form-edit-animal", function(e) {
+            $(document).on("submit", "#form-edit-animal", function (e) {
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -244,7 +275,7 @@ if (isset($_POST["action"])) {
                     data: formData,
                     contentType: false,
                     processData: false,
-                    success: function(result) {
+                    success: function (result) {
                         $('#Modal-edit').modal('hide');
                         if (result == "") {
                             Swal.fire("¡Éxito!", "Animal actualizado correctamente.", "success");
@@ -253,13 +284,13 @@ if (isset($_POST["action"])) {
                             Swal.fire("Error", result, "warning");
                         }
                     },
-                    error: function() {
+                    error: function () {
                         Swal.fire("Error", "No se pudo procesar el formulario.", "error");
                     }
                 });
             });
         </script>
-<?php
+        <?php
         exit;
     }
     //CAMBIAR ESTADO

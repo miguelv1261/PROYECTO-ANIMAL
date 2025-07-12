@@ -31,7 +31,7 @@
   </div>
   <script>
     var pre;
-    $(function() {
+    $(function () {
       pre = $('#list-pre').DataTable({
         ajax: "../crud/ajaxusuarios.php?action=listausuarios",
         responsive: true,
@@ -40,30 +40,30 @@
         autoWidth: false,
         order: [0, 'asc'],
         columns: [{
-            data: 'id',
-            responsivePriority: 6
-          },
-          {
-            data: 'nombre',
-            responsivePriority: 1
-          },
-          {
-            data: 'correo',
-            responsivePriority: 4
-          },
-          {
-            data: 'telefono',
-            responsivePriority: 5
-          },
-          {
-            data: 'direccion',
-            responsivePriority: 7
-          },
-          {
-            data: 'tool',
-            responsivePriority: 0,
-            render: function(data, type, row, meta) {
-              return `
+          data: 'id',
+          responsivePriority: 6
+        },
+        {
+          data: 'nombre',
+          responsivePriority: 1
+        },
+        {
+          data: 'correo',
+          responsivePriority: 4
+        },
+        {
+          data: 'telefono',
+          responsivePriority: 5
+        },
+        {
+          data: 'direccion',
+          responsivePriority: 7
+        },
+        {
+          data: 'tool',
+          responsivePriority: 0,
+          render: function (data, type, row, meta) {
+            return `
                     <i class="fa fa-eye text-info me-2" style="cursor:pointer"
                       data-bs-toggle="tooltip" data-bs-placement="top" title="Ver"
                       onclick="view_animal(${data})"></i>
@@ -76,8 +76,8 @@
                       data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"
                       onclick="delete_animal(${data})"></i>
                   `;
-            }
           }
+        }
         ],
         dom: 'Bfrtip',
         buttons: [
@@ -87,29 +87,34 @@
             extend: 'collection',
             text: '<i class="fa fa-floppy-o"></i> Exportar',
             buttons: [{
-                extend: 'print',
-                title: 'Lista de animales',
-                text: '<i class="fa fa-print"></i> Imprimir'
-              },
-              {
-                extend: 'csvHtml5',
-                title: 'Lista de animales',
-                text: '<i class="fa fa-file-csv"></i> CSV'
-              },
-              {
-                extend: 'pdfHtml5',
-                title: 'Lista de animales',
-                orientation: 'landscape',
-                text: '<i class="fa fa-file-pdf"></i> PDF'
-              }
+              extend: 'print',
+              title: 'Lista de animales',
+              text: '<i class="fa fa-print"></i> Imprimir'
+            },
+            {
+              extend: 'csvHtml5',
+              title: 'Lista de animales',
+              text: '<i class="fa fa-file-csv"></i> CSV'
+            },
+            {
+              extend: 'pdfHtml5',
+              title: 'Lista de animales',
+              orientation: 'landscape',
+              text: '<i class="fa fa-file-pdf"></i> PDF'
+            }
             ]
           }
         ],
-        "initComplete": function() {
+        "initComplete": function () {
           $('#list-pre_wrapper .dt-buttons').after('<div class="btn-group dt-btns"></div>');
           $('#list-pre_wrapper .dt-buttons').append(
-            '<a class="btn btn-sm btn-default buttons-collection" onClick="updatepre()"><i class="fa fa-refresh" ></i></a>'
+            '<a class="btn btn-default buttons-collection" onClick="updatepre()"><i class="fa fa-refresh" ></i></a>'
           );
+          $('#list-pre_wrapper .dt-buttons').append(
+            '<a class="btn btn-default buttons-collection" onClick="new_animal()"><i class="fa fa-plus"></i> AGREGAR </a>'
+          );
+
+
         }
       });
     });
@@ -122,10 +127,23 @@
       $.post("../crud/ajaxanimales.php", {
         action: "veranimal",
         id: id_animal
-      }).done(function(data) {
+      }).done(function (data) {
         $('#tmp').html(data);
-        setTimeout(function() {
+        setTimeout(function () {
           const modal = new bootstrap.Modal(document.getElementById('Modal-in'));
+          modal.show();
+        }, 100);
+      });
+    }
+    //NUEVO PERRO
+    function new_animal(id_animal) {
+      $.post("../crud/ajaxanimales.php", {
+        action: "nuevoanimal",
+        id: id_animal
+      }).done(function (data) {
+        $('#tmp').html(data);
+        setTimeout(function () {
+          const modal = new bootstrap.Modal(document.getElementById('Modal-new'));
           modal.show();
         }, 100);
       });
@@ -135,9 +153,9 @@
       $.post("../crud/ajaxanimales.php", {
         action: "editaranimal",
         id: id_animal
-      }).done(function(data) {
+      }).done(function (data) {
         $('#tmp').html(data);
-        setTimeout(function() {
+        setTimeout(function () {
           const modal = new bootstrap.Modal(document.getElementById('Modal-edit'));
           modal.show();
         }, 100);
