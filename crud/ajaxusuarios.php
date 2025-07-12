@@ -251,11 +251,7 @@ if (isset($_POST["action"])) {
     //CAMBIAR ESTADO
     if ($_POST["action"] == "toggleusuario") {
         $id = $db->sanitize($_POST["id"]);
-
-        // Ejecutar la consulta
         $resultado = $db->dameQuery("SELECT activo FROM usuarios WHERE id_usuario = $id LIMIT 1");
-
-        // Validar y extraer el resultado
         if ($resultado && $fila = $resultado->fetch_assoc()) {
             $estado_actual = $fila["activo"];
             $nuevo_estado = ($estado_actual == 1) ? 2 : 1;

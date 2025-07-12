@@ -174,33 +174,33 @@
       });
     }
     //CAMBIAR ESTADO
- function delete_usuario(id) {
-  Swal.fire({
-    title: "¿Está seguro que desea cambiar el estado del registro?",
-    text: "Podrá volver a modificarlo cuando lo desee.",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#DD6B55",
-    cancelButtonText: "Cancelar",
-    confirmButtonText: "Sí, continuar",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      $.post("../crud/ajaxusuarios.php", {
-        action: "toggleusuario",
-        id: id
-      }, function (response) {
-        updatepre(); // recargar tabla
-        Swal.fire({
-          icon: "success",
-          title: "Operación exitosa",
-          text: response, // mensaje desde el backend
-          timer: 2000,
-          showConfirmButton: false
-        });
+    function delete_usuario(id) {
+      Swal.fire({
+        title: "¿Está seguro que desea cambiar el estado del registro?",
+        text: "Podrá volver a modificarlo cuando lo desee.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Sí, continuar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.post("../crud/ajaxusuarios.php", {
+            action: "toggleusuario",
+            id: id
+          }, function (response) {
+            updatepre();
+            Swal.fire({
+              icon: "success",
+              title: "Operación exitosa",
+              text: response,
+              timer: 2000,
+              showConfirmButton: false
+            });
+          });
+        }
       });
     }
-  });
-}
 
 
   </script>
