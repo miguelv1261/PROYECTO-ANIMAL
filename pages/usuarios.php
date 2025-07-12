@@ -19,6 +19,7 @@
                   <th>Correo</th>
                   <th>Telefono</th>
                   <th>Dirección</th>
+                  <th>Estado</th>
                   <th>Acción</th>
                 </tr>
               </thead>
@@ -60,21 +61,32 @@
           responsivePriority: 7
         },
         {
+          data: 'estado',
+          responsivePriority: 7,
+          render: function (data, type, row) {
+            if (data == 1) {
+              return '<span class="badge bg-success">Habilitado</span>';
+            } else {
+              return '<span class="badge bg-danger">Deshabilitado</span>';
+            }
+          }
+        },
+        {
           data: 'tool',
           responsivePriority: 0,
           render: function (data, type, row, meta) {
             return `
                     <i class="fa fa-eye text-info me-2" style="cursor:pointer"
                       data-bs-toggle="tooltip" data-bs-placement="top" title="Ver"
-                      onclick="view_animal(${data})"></i>
+                      onclick="view_usuario(${data})"></i>
 
                     <i class="fa fa-pen text-warning me-2" style="cursor:pointer"
                       data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
-                      onclick="edit_animal(${data})"></i>
+                      onclick="edit_usuario(${data})"></i>
 
                     <i class="fa fa-trash text-danger" style="cursor:pointer"
-                      data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"
-                      onclick="delete_animal(${data})"></i>
+                      data-bs-toggle="tooltip" data-bs-placement="top" title="Habilitar/Deshabilitar"
+                      onclick="delete_usuario(${data})"></i>
                   `;
           }
         }
@@ -122,10 +134,10 @@
     function updatepre() {
       pre.ajax.reload(null, false);
     }
-    //VER PERRO
-    function view_animal(id_animal) {
-      $.post("../crud/ajaxanimales.php", {
-        action: "veranimal",
+    //VER USUARIO
+    function view_usuario(id_animal) {
+      $.post("../crud/ajaxusuarios.php", {
+        action: "verusuario",
         id: id_animal
       }).done(function (data) {
         $('#tmp').html(data);
@@ -135,10 +147,10 @@
         }, 100);
       });
     }
-    //NUEVO PERRO
-    function new_animal(id_animal) {
-      $.post("../crud/ajaxanimales.php", {
-        action: "nuevoanimal",
+    //NUEVO USUARIO
+    function new_usuario(id_animal) {
+      $.post("../crud/ajaxusuarios.php", {
+        action: "nuevousuario",
         id: id_animal
       }).done(function (data) {
         $('#tmp').html(data);
@@ -148,10 +160,10 @@
         }, 100);
       });
     }
-    //EDITAR PERRO
-    function edit_animal(id_animal) {
-      $.post("../crud/ajaxanimales.php", {
-        action: "editaranimal",
+    //EDITAR USUARIO
+    function edit_usuario(id_animal) {
+      $.post("../crud/ajaxusuarios.php", {
+        action: "editarusuario",
         id: id_animal
       }).done(function (data) {
         $('#tmp').html(data);
@@ -162,30 +174,33 @@
       });
     }
     //CAMBIAR ESTADO
-    function delete_animal(id) {
-      Swal.fire({
-        title: "¿Está seguro que desea desactivar este registro?",
-        text: "Podrá activarlo nuevamente si lo desea.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Sí, desactivar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $.post("../crud/ajaxanimales.php", {
-            action: "deleteanimal",
-            id: id
-          })
-          updatepre();
-          Swal.fire({
-            icon: "success",
-            title: "Operación exitosa",
-            text: "Registro desactivado correctamente",
-            timer: 2000,
-            showConfirmButton: false
-          });
-        }
+ function delete_usuario(id) {
+  Swal.fire({
+    title: "¿Está seguro que desea cambiar el estado del registro?",
+    text: "Podrá volver a modificarlo cuando lo desee.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    cancelButtonText: "Cancelar",
+    confirmButtonText: "Sí, continuar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.post("../crud/ajaxusuarios.php", {
+        action: "toggleusuario",
+        id: id
+      }, function (response) {
+        updatepre(); // recargar tabla
+        Swal.fire({
+          icon: "success",
+          title: "Operación exitosa",
+          text: response, // mensaje desde el backend
+          timer: 2000,
+          showConfirmButton: false
+        });
       });
     }
+  });
+}
+
+
   </script>
