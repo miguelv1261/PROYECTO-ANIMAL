@@ -14,16 +14,10 @@ class Database
     private function __construct()
     {
         require __DIR__ . "/ini_bd.php";
-
-        // Crear conexión
         $this->_connection = new mysqli($host, $mtuser, $mtcontrasena, $mtbd);
-
-        // Verificar errores
         if ($this->_connection->connect_error) {
             die("Error de conexión a la base de datos: " . $this->_connection->connect_error);
         }
-
-        // Establecer conjunto de caracteres
         $this->_connection->set_charset("utf8");
     }
 
