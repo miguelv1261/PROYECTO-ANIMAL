@@ -1,3 +1,12 @@
+<?php
+require_once "../includes/start.php";
+require_once "../includes/System.class.php";
+$loginSys = new LoginSystem();
+if (!$loginSys->isLoggedIn()) {
+  echo "<script type=\"text/javascript\">window.location=\"login.php\"; </script>";
+  exit;
+}
+?>
 <?php include '../includes/header.php'; ?>
 <div class="min-height-300 bg-dark position-absolute w-100"></div>
 <?php include "../includes/menu.php"; ?>
