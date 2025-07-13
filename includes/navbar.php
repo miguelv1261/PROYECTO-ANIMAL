@@ -13,9 +13,6 @@
                                0
                            </span>
                        </a>
-                       <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="notificationDropdown" id="notificationList" style="min-width: 300px;">
-                           <li class="text-center">Cargando notificaciones...</li>
-                       </ul>
                    </li>
                    <?php if (isset($_SESSION["nombreusername"])): ?>
                        <li class="nav-item dropdown">
@@ -47,8 +44,6 @@
                        </li>
                    <?php endif; ?>
                </ul>
-
-
            </div>
        </div>
    </nav>
@@ -94,16 +89,12 @@
                .then(data => {
                    const notificationCount = document.getElementById("notificationCount");
                    const notificationList = document.getElementById("notificationList");
-
-                   // Actualizar el contador
                    if (data.length > 0) {
                        notificationCount.style.display = 'inline-block';
                        notificationCount.innerText = data.length;
                    } else {
                        notificationCount.style.display = 'none';
                    }
-
-                   // Actualizar el contenido del dropdown
                    notificationList.innerHTML = "";
                    if (data.length === 0) {
                        notificationList.innerHTML = "<li class='text-center'>Sin notificaciones nuevas</li>";
@@ -124,10 +115,6 @@
                    console.error("Error al obtener notificaciones:", error);
                });
        }
-
-       // Actualizar cada 10 segundos
-       setInterval(actualizarNotificaciones, 10000);
-
-       // También al cargar la página
+       setInterval(actualizarNotificaciones, 5000);
        actualizarNotificaciones();
    </script>
