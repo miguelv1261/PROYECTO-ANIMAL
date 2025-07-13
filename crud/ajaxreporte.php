@@ -35,7 +35,6 @@ if (isset($_POST["action"])) {
     if ($_POST["action"] == "verreporte") {
         $id = $db->sanitize($_POST["id"]);
         $datos = $db->dameQuery("SELECT * FROM reporte_rescates WHERE id = '$id' LIMIT 1");
-
         $datos = mysqli_fetch_assoc($datos);
         $latitud = isset($datos['latitud']) ? floatval($datos['latitud']) : 0;
         $longitud = isset($datos['longitud']) ? floatval($datos['longitud']) : 0;

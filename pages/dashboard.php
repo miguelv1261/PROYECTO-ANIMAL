@@ -1,3 +1,19 @@
+<?php
+require_once "../includes/System.class.php";
+$db = Database::getInstance();
+// Rescates diarios
+$rescatesHoyQuery = $db->dameQuery("SELECT COUNT(*) AS totalHoy FROM reporte_rescates WHERE DATE(fecha) = CURDATE()");
+$rescatesHoy = ($rescatesHoyQuery && $rescatesHoyQuery->num_rows > 0) ? $rescatesHoyQuery->fetch_assoc()['totalHoy'] : 0;
+// Rescates del mes actual
+$rescatesMesQuery = $db->dameQuery("SELECT COUNT(*) AS totalMes FROM reporte_rescates WHERE MONTH(fecha) = MONTH(CURDATE()) AND YEAR(fecha) = YEAR(CURDATE())");
+$rescatesMes = ($rescatesMesQuery && $rescatesMesQuery->num_rows > 0) ? $rescatesMesQuery->fetch_assoc()['totalMes'] : 0;
+//Total en adopcion
+$totaladopcionQuery = $db->dameQuery("SELECT COUNT(*) AS totaladoptar FROM animales");
+$totaladopcion = ($totaladopcionQuery && $totaladopcionQuery->num_rows > 0) ? $totaladopcionQuery->fetch_assoc()['totaladoptar'] : 0;
+//Total usuarios
+$totalusuariosQuery = $db->dameQuery("SELECT COUNT(*) AS totalusuarios FROM usuarios");
+$totalusuarios = ($totalusuariosQuery && $totalusuariosQuery->num_rows > 0) ? $totalusuariosQuery->fetch_assoc()['totalusuarios'] : 0;
+?>
 <?php include '../includes/header.php'; ?>
 <div class="min-height-300 bg-dark position-absolute w-100"></div>
 <?php include "../includes/menu.php"; ?>
@@ -13,7 +29,7 @@
                 <div class="numbers">
                   <p class="text-sm mb-0 text-uppercase font-weight-bold">Rescates Diarios</p>
                   <h5 class="font-weight-bolder">
-                    $53,000
+                    <?php echo number_format($rescatesHoy); ?>
                   </h5>
                 </div>
               </div>
@@ -34,7 +50,7 @@
                 <div class="numbers">
                   <p class="text-sm mb-0 text-uppercase font-weight-bold">Rescates Mensuales</p>
                   <h5 class="font-weight-bolder">
-                    2,300
+                    <?php echo number_format($rescatesMes); ?>
                   </h5>
                 </div>
               </div>
@@ -53,9 +69,9 @@
             <div class="row">
               <div class="col-8">
                 <div class="numbers">
-                  <p class="text-sm mb-0 text-uppercase font-weight-bold">Adopciones</p>
+                  <p class="text-sm mb-0 text-uppercase font-weight-bold">Perros por Adoptar</p>
                   <h5 class="font-weight-bolder">
-                    +3,462
+                    <?php echo number_format($totaladopcion); ?>
                   </h5>
                 </div>
               </div>
@@ -76,7 +92,7 @@
                 <div class="numbers">
                   <p class="text-sm mb-0 text-uppercase font-weight-bold">Usuarios Nuevos</p>
                   <h5 class="font-weight-bolder">
-                    $103,430
+                    <?php echo number_format($totalusuarios); ?>
                   </h5>
                 </div>
               </div>
