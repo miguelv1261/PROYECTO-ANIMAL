@@ -9,7 +9,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0"
             target="_blank">
-            <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100"
+            <img src="../assets/img/logo.jpeg" width="26px" height="26px" class="navbar-brand-img h-100"
                 alt="main_logo">
             <span class="ms-1 font-weight-bold">RescatePet</span>
         </a>
@@ -45,7 +45,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="../pages/reporte.php">
+                <a class="nav-link <?php echo ($current_page == 'reporte.php') ? 'active' : ''; ?>" href="../pages/reporte.php">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-app text-dark text-sm opacity-10"></i>
@@ -57,7 +57,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
     <div class="sidenav-footer mx-3 ">
         <div class="card card-plain shadow-none" id="sidenavCard">
-            <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+            <img class="w-50 mx-auto" src="../assets/img/logo.jpeg" alt="sidebar_illustration">
             <div class="card-body text-center p-3 w-100 pt-0">
             </div>
         </div>

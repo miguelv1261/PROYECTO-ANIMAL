@@ -8,7 +8,7 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0">
-            <h6>LISTADO DE PERROS</h6>
+            <h6>PERROS POR ADOPTAR</h6>
           </div>
           <div class="card-body">
             <table id="list-pre" class="table table-striped table-bordered dt-responsive nowrap w-100">

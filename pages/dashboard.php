@@ -1,5 +1,11 @@
 <?php
+require_once "../includes/start.php";
 require_once "../includes/System.class.php";
+$loginSys = new LoginSystem();
+if (!$loginSys->isLoggedIn()) {
+  echo "<script type=\"text/javascript\">window.location=\"login.php\"; </script>";
+  exit;
+}
 $db = Database::getInstance();
 // Rescates diarios
 $rescatesHoyQuery = $db->dameQuery("SELECT COUNT(*) AS totalHoy FROM reporte_rescates WHERE DATE(fecha) = CURDATE()");
@@ -413,10 +419,14 @@ $totalusuarios = ($totalusuariosQuery && $totalusuariosQuery->num_rows > 0) ? $t
         options: {
           responsive: true,
           plugins: {
-            legend: { display: true }
+            legend: {
+              display: true
+            }
           },
           scales: {
-            y: { beginAtZero: true }
+            y: {
+              beginAtZero: true
+            }
           }
         }
       });

@@ -15,6 +15,7 @@ if (isset($_GET["action"])) {
             $item["id"] = $i++;
             $item["descripcion"] = $row["descripcion"];
             $item["fecha"] = $row["fecha"];
+            $item["estado"] = $row["estado"];
             $item["tool"] = $row["id"];
             $data[] = $item;
         }
@@ -31,14 +32,14 @@ if (isset($_GET["action"])) {
 }
 
 if (isset($_POST["action"])) {
-    //VER ANIMAL
+    //VER REPORTE
     if ($_POST["action"] == "verreporte") {
         $id = $db->sanitize($_POST["id"]);
         $datos = $db->dameQuery("SELECT * FROM reporte_rescates WHERE id = '$id' LIMIT 1");
         $datos = mysqli_fetch_assoc($datos);
         $latitud = isset($datos['latitud']) ? floatval($datos['latitud']) : 0;
         $longitud = isset($datos['longitud']) ? floatval($datos['longitud']) : 0;
-        ?>
+?>
         <div class="modal fade" id="Modal-in" tabindex="-1" aria-labelledby="ModalInLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content shadow-lg border-0">
@@ -89,12 +90,11 @@ if (isset($_POST["action"])) {
             </div>
         </div>
 
-        <?php
+    <?php
         exit;
     }
     //NUEVO ANIMAL
     if ($_POST["action"] == "nuevoanimal") {
-
     }
     //CRUD EDITAR
     if ($_POST["action"] == "edit_animales") {
@@ -121,7 +121,7 @@ if (isset($_POST["action"])) {
         $id = $db->sanitize($_POST["id"]);
         $conn = $db->dameQuery("SELECT * FROM animales WHERE id_animal = '$id' LIMIT 1");
         $datos = mysqli_fetch_assoc($conn);
-        ?>
+    ?>
         <div class="modal fade" id="Modal-edit" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <form id="form-edit-animal">
@@ -209,7 +209,7 @@ if (isset($_POST["action"])) {
         </div>
         </div>
         <script>
-            $(document).on("submit", "#form-edit-animal", function (e) {
+            $(document).on("submit", "#form-edit-animal", function(e) {
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -220,7 +220,7 @@ if (isset($_POST["action"])) {
                     data: formData,
                     contentType: false,
                     processData: false,
-                    success: function (result) {
+                    success: function(result) {
                         $('#Modal-edit').modal('hide');
                         if (result == "") {
                             Swal.fire("¡Éxito!", "Animal actualizado correctamente.", "success");
@@ -229,13 +229,13 @@ if (isset($_POST["action"])) {
                             Swal.fire("Error", result, "warning");
                         }
                     },
-                    error: function () {
+                    error: function() {
                         Swal.fire("Error", "No se pudo procesar el formulario.", "error");
                     }
                 });
             });
         </script>
-        <?php
+<?php
         exit;
     }
     //CAMBIAR ESTADO
