@@ -1,8 +1,8 @@
 <?php
-require_once "../includes/start.php";
+require_once "includes/start.php";
 
 if (isset($_POST["Submit"])) {
-  require_once "../includes/System.class.php";
+  require_once "includes/System.class.php";
   $loginSystem = new LoginSystem();
 
   if ($loginSystem->doLogin($_POST["loginacc"], $_POST["contras"])) {
@@ -20,8 +20,8 @@ if (isset($_POST["Submit"])) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../img/logo.jpeg">
-  <link rel="icon" type="image/png" href="../img/logo.jpeg">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/logo.jpeg">
+  <link rel="icon" type="image/png" href="img/logo.jpeg">
   <title>
     RescatePet
   </title>
@@ -31,7 +31,7 @@ if (isset($_POST["Submit"])) {
   <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <link id="pagestyle" href="assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -76,7 +76,7 @@ if (isset($_POST["Submit"])) {
               class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
               <div
                 class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                style="background-image: url('../assets/img/logo.jpeg');
+                style="background-image: url('img/logo.jpeg');
           background-size: cover;">
                 <span class="mask bg-gradient-primary opacity-6"></span>
 
@@ -87,8 +87,8 @@ if (isset($_POST["Submit"])) {
       </div>
     </section>
   </main>
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
 
   <script>
     var win = navigator.platform.indexOf('Win') > -1;

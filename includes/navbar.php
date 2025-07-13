@@ -84,7 +84,7 @@
    </script>
    <script>
        function actualizarNotificaciones() {
-           fetch("../includes/notificaciones_ajax.php")
+           fetch("notificaciones_ajax.php")
                .then(response => response.json())
                .then(data => {
                    const notificationCount = document.getElementById("notificationCount");

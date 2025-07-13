@@ -1,8 +1,8 @@
-<?php include '../includes/header.php'; ?>
+<?php include 'includes/header.php'; ?>
 <div class="min-height-300 bg-dark position-absolute w-100"></div>
-<?php include "../includes/menu.php"; ?>
+<?php include "includes/menu.php"; ?>
 <main class="main-content position-relative border-radius-lg ">
-  <?php include "../includes/navbar.php"; ?>
+  <?php include "includes/navbar.php"; ?>
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">

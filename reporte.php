@@ -1,17 +1,17 @@
 <?php
-require_once "../includes/start.php";
-require_once "../includes/System.class.php";
+require_once "includes/start.php";
+require_once "includes/System.class.php";
 $loginSys = new LoginSystem();
 if (!$loginSys->isLoggedIn()) {
   echo "<script type=\"text/javascript\">window.location=\"login.php\"; </script>";
   exit;
 }
 ?>
-<?php include '../includes/header.php'; ?>
+<?php include 'includes/header.php'; ?>
 <div class="min-height-300 bg-dark position-absolute w-100"></div>
-<?php include "../includes/menu.php"; ?>
+<?php include "includes/menu.php"; ?>
 <main class="main-content position-relative border-radius-lg ">
-    <?php include "../includes/navbar.php"; ?>
+    <?php include "includes/navbar.php"; ?>
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
@@ -41,7 +41,7 @@ if (!$loginSys->isLoggedIn()) {
         var pre;
         $(function() {
             pre = $('#list-pre').DataTable({
-                ajax: "../crud/ajaxreporte.php?action=listaanimales",
+                ajax: "crud/ajaxreporte.php?action=listaanimales",
                 responsive: true,
                 deferRender: true,
                 stateSave: true,
@@ -123,7 +123,7 @@ if (!$loginSys->isLoggedIn()) {
         }
         //VER REPORTE
         function view_reporte(id) {
-            $.post("../crud/ajaxreporte.php", {
+            $.post("crud/ajaxreporte.php", {
                 action: "verreporte",
                 id: id
             }).done(function(data) {
@@ -163,12 +163,9 @@ if (!$loginSys->isLoggedIn()) {
             });
         }
 
-
-
-
         //EDITAR PERRO
         function edit_animal(id_animal) {
-            $.post("../crud/ajaxanimales.php", {
+            $.post("crud/ajaxanimales.php", {
                 action: "editaranimal",
                 id: id_animal
             }).done(function(data) {
@@ -191,7 +188,7 @@ if (!$loginSys->isLoggedIn()) {
                 confirmButtonText: "Sí, desactivar",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.post("../crud/ajaxanimales.php", {
+                    $.post("crud/ajaxanimales.php", {
                         action: "deleteanimal",
                         id: id
                     })

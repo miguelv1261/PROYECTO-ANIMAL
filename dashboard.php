@@ -1,6 +1,6 @@
 <?php
-require_once "../includes/start.php";
-require_once "../includes/System.class.php";
+require_once "includes/start.php";
+require_once "includes/System.class.php";
 $loginSys = new LoginSystem();
 if (!$loginSys->isLoggedIn()) {
   echo "<script type=\"text/javascript\">window.location=\"login.php\"; </script>";
@@ -20,11 +20,11 @@ $totaladopcion = ($totaladopcionQuery && $totaladopcionQuery->num_rows > 0) ? $t
 $totalusuariosQuery = $db->dameQuery("SELECT COUNT(*) AS totalusuarios FROM usuarios");
 $totalusuarios = ($totalusuariosQuery && $totalusuariosQuery->num_rows > 0) ? $totalusuariosQuery->fetch_assoc()['totalusuarios'] : 0;
 ?>
-<?php include '../includes/header.php'; ?>
+<?php include 'includes/header.php'; ?>
 <div class="min-height-300 bg-dark position-absolute w-100"></div>
-<?php include "../includes/menu.php"; ?>
+<?php include "includes/menu.php"; ?>
 <main class="main-content position-relative border-radius-lg ">
-  <?php include "../includes/navbar.php"; ?>
+  <?php include "includes/navbar.php"; ?>
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -137,7 +137,7 @@ $totalusuarios = ($totalusuariosQuery && $totalusuariosQuery->num_rows > 0) ? $t
           <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
             <div class="carousel-inner border-radius-lg h-100">
               <?php
-              $folder = "../img/";
+              $folder = "img/";
               $images = glob($folder . "*.{jpg,jpeg,png,gif}", GLOB_BRACE);
               $first = true;
               foreach ($images as $image) {
@@ -391,13 +391,13 @@ $totalusuarios = ($totalusuariosQuery && $totalusuariosQuery->num_rows > 0) ? $t
   </div>
 </main>
 <!--   Core JS Files   -->
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
-<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-<script src="../assets/js/plugins/chartjs.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="assets/js/plugins/chartjs.min.js"></script>
 <script>
-  fetch('../crud/ajaxdash.php?accion=grafico')
+  fetch('crud/ajaxdash.php?accion=grafico')
     .then(response => response.json())
     .then(res => {
       const ctx = document.getElementById("chart-line").getContext("2d");
@@ -444,7 +444,7 @@ $totalusuarios = ($totalusuariosQuery && $totalusuariosQuery->num_rows > 0) ? $t
   }
 </script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+<script src="assets/js/argon-dashboard.min.js?v=2.1.0"></script>
 </body>
 
 </html>

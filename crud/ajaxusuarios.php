@@ -1,5 +1,5 @@
 <?php
-require_once "../includes/System.class.php";
+require_once "includes/System.class.php";
 $db = Database::getInstance();
 
 if (isset($_GET["action"])) {
@@ -225,7 +225,7 @@ if (isset($_POST["action"])) {
                 let formData = new FormData(this);
                 formData.append("action", "edit_animales");
                 $.ajax({
-                    url: "../crud/ajaxanimales.php",
+                    url: "crud/ajaxanimales.php",
                     type: "POST",
                     data: formData,
                     contentType: false,

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../includes/System.class.php";
+require_once "includes/System.class.php";
 $db = Database::getInstance();
 
 // Consulta básica, ajusta según tu estructura de tabla

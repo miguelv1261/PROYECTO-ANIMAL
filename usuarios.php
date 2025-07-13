@@ -1,17 +1,17 @@
 <?php
-require_once "../includes/start.php";
-require_once "../includes/System.class.php";
+require_once "includes/start.php";
+require_once "includes/System.class.php";
 $loginSys = new LoginSystem();
 if (!$loginSys->isLoggedIn()) {
   echo "<script type=\"text/javascript\">window.location=\"login.php\"; </script>";
   exit;
 }
 ?>
-<?php include '../includes/header.php'; ?>
+<?php include 'includes/header.php'; ?>
 <div class="min-height-300 bg-dark position-absolute w-100"></div>
-<?php include "../includes/menu.php"; ?>
+<?php include "includes/menu.php"; ?>
 <main class="main-content position-relative border-radius-lg ">
-  <?php include "../includes/navbar.php"; ?>
+  <?php include "includes/navbar.php"; ?>
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
@@ -43,7 +43,7 @@ if (!$loginSys->isLoggedIn()) {
     var pre;
     $(function() {
       pre = $('#list-pre').DataTable({
-        ajax: "../crud/ajaxusuarios.php?action=listausuarios",
+        ajax: "crud/ajaxusuarios.php?action=listausuarios",
         responsive: true,
         deferRender: true,
         stateSave: true,
@@ -145,7 +145,7 @@ if (!$loginSys->isLoggedIn()) {
     }
     //VER USUARIO
     function view_usuario(id_animal) {
-      $.post("../crud/ajaxusuarios.php", {
+      $.post("crud/ajaxusuarios.php", {
         action: "verusuario",
         id: id_animal
       }).done(function(data) {
@@ -158,7 +158,7 @@ if (!$loginSys->isLoggedIn()) {
     }
     //NUEVO USUARIO
     function new_usuario(id_animal) {
-      $.post("../crud/ajaxusuarios.php", {
+      $.post("crud/ajaxusuarios.php", {
         action: "nuevousuario",
         id: id_animal
       }).done(function(data) {
@@ -171,7 +171,7 @@ if (!$loginSys->isLoggedIn()) {
     }
     //EDITAR USUARIO
     function edit_usuario(id_animal) {
-      $.post("../crud/ajaxusuarios.php", {
+      $.post("crud/ajaxusuarios.php", {
         action: "editarusuario",
         id: id_animal
       }).done(function(data) {
@@ -194,7 +194,7 @@ if (!$loginSys->isLoggedIn()) {
         confirmButtonText: "Sí, continuar",
       }).then((result) => {
         if (result.isConfirmed) {
-          $.post("../crud/ajaxusuarios.php", {
+          $.post("crud/ajaxusuarios.php", {
             action: "toggleusuario",
             id: id
           }, function(response) {

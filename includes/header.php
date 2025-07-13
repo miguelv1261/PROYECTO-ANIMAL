@@ -4,13 +4,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../img/logo.jpeg">
-  <link rel="icon" type="image/png" href="../img/logo.jpeg">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/logo.jpeg">
+  <link rel="icon" type="image/png" href="img/logo.jpeg">
   <title>
     RescatePet
   </title>
   <!-- Argon Dashboard -->
-  <link href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <link href="assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS de Font Awesome desde CDN oficial (versión 6.5.1) -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
   <!-- CSS de Leaflet -->
@@ -44,10 +44,7 @@
 
   <!-- Bootstrap 5 JS Bundle (con Popper incluido) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
   <!-- JS de Leaflet -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
