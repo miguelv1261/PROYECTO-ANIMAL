@@ -1,5 +1,5 @@
 <?php
-require_once "includes/System.class.php";
+require_once "../includes/System.class.php";
 $db = Database::getInstance();
 
 if (isset($_GET["action"])) {
@@ -8,7 +8,7 @@ if (isset($_GET["action"])) {
         $i = 1;
         $data = array();
 
-        $sql = "SELECT * FROM animales WHERE activo = 1";
+        $sql = "SELECT * FROM animales";
         $result = $db->dameQuery($sql);
 
         while ($row = $result->fetch_assoc()) {
@@ -20,6 +20,7 @@ if (isset($_GET["action"])) {
             $item["color"] = $row["color"];
             $item["estado_salud"] = $row["estado_salud"];
             $item["estado_adopcion"] = $row["estado_adopcion"];
+            $item["estado"] = $row["activo"];
             $item["tool"] = $row["id_animal"];
             $data[] = $item;
         }
@@ -43,7 +44,7 @@ if (isset($_POST["action"])) {
         $historial = $db->dameQuery("SELECT * FROM trazabilidad_animal WHERE id_animal = '$id' ORDER BY fecha_evento DESC");
 
         $datos = mysqli_fetch_assoc($datos);
-        ?>
+?>
         <div class="modal fade" id="Modal-in" tabindex="-1" aria-labelledby="ModalInLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content shadow-lg border-0">
@@ -144,12 +145,11 @@ if (isset($_POST["action"])) {
             </div>
         </div>
 
-        <?php
+    <?php
         exit;
     }
     //NUEVO ANIMAL
     if ($_POST["action"] == "nuevoanimal") {
-
     }
     //CRUD EDITAR
     if ($_POST["action"] == "edit_animales") {
@@ -176,7 +176,7 @@ if (isset($_POST["action"])) {
         $id = $db->sanitize($_POST["id"]);
         $conn = $db->dameQuery("SELECT * FROM animales WHERE id_animal = '$id' LIMIT 1");
         $datos = mysqli_fetch_assoc($conn);
-        ?>
+    ?>
         <div class="modal fade" id="Modal-edit" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <form id="form-edit-animal">
@@ -264,7 +264,7 @@ if (isset($_POST["action"])) {
         </div>
         </div>
         <script>
-            $(document).on("submit", "#form-edit-animal", function (e) {
+            $(document).on("submit", "#form-edit-animal", function(e) {
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -275,7 +275,7 @@ if (isset($_POST["action"])) {
                     data: formData,
                     contentType: false,
                     processData: false,
-                    success: function (result) {
+                    success: function(result) {
                         $('#Modal-edit').modal('hide');
                         if (result == "") {
                             Swal.fire("¡Éxito!", "Animal actualizado correctamente.", "success");
@@ -284,19 +284,29 @@ if (isset($_POST["action"])) {
                             Swal.fire("Error", result, "warning");
                         }
                     },
-                    error: function () {
+                    error: function() {
                         Swal.fire("Error", "No se pudo procesar el formulario.", "error");
                     }
                 });
             });
         </script>
-        <?php
+<?php
         exit;
     }
     //CAMBIAR ESTADO
-    if ($_POST["action"] == "deleteanimal") {
+    if ($_POST["action"] == "toggleanimal") {
         $id = $db->sanitize($_POST["id"]);
-        $db->dameQuery("UPDATE animales SET activo = 2 WHERE id_animal = $id");
+        $resultado = $db->dameQuery("SELECT activo FROM animales WHERE id_animal = $id LIMIT 1");
+        if ($resultado && $fila = $resultado->fetch_assoc()) {
+            $estado_actual = $fila["activo"];
+            $nuevo_estado = ($estado_actual == 1) ? 2 : 1;
+
+            $db->dameQuery("UPDATE animales SET activo = $nuevo_estado WHERE id_animal = $id");
+
+            echo ($nuevo_estado == 1) ? "Animal habilitado correctamente." : "Usuario deshabilitado correctamente.";
+        } else {
+            echo "Animale no encontrado.";
+        }
         exit;
     }
 }

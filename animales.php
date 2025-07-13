@@ -79,6 +79,17 @@ if (!$loginSys->isLoggedIn()) {
             responsivePriority: 9
           },
           {
+            data: 'estado',
+            responsivePriority: 7,
+            render: function(data, type, row) {
+              if (data == 1) {
+                return '<span class="badge bg-success">Habilitado</span>';
+              } else {
+                return '<span class="badge bg-danger">Deshabilitado</span>';
+              }
+            }
+          },
+          {
             data: 'tool',
             responsivePriority: 0,
             render: function(data, type, row, meta) {
@@ -166,25 +177,26 @@ if (!$loginSys->isLoggedIn()) {
     function delete_animal(id) {
       Swal.fire({
         title: "¿Está seguro que desea desactivar este registro?",
-        text: "Podrá activarlo nuevamente si lo desea.",
+        text: "Podrá volver a modificarlo cuando lo desee.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         cancelButtonText: "Cancelar",
-        confirmButtonText: "Sí, desactivar",
+        confirmButtonText: "Sí, continuar",
       }).then((result) => {
         if (result.isConfirmed) {
           $.post("crud/ajaxanimales.php", {
-            action: "deleteanimal",
+            action: "toggleanimal",
             id: id
-          })
-          updatepre();
-          Swal.fire({
-            icon: "success",
-            title: "Operación exitosa",
-            text: "Registro desactivado correctamente",
-            timer: 2000,
-            showConfirmButton: false
+          }, function(response) {
+            updatepre();
+            Swal.fire({
+              icon: "success",
+              title: "Operación exitosa",
+              text: response,
+              timer: 2000,
+              showConfirmButton: false
+            });
           });
         }
       });

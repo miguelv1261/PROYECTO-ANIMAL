@@ -1,5 +1,5 @@
 <?php
-require_once "includes/System.class.php";
+require_once "../includes/System.class.php";
 $db = Database::getInstance();
 $accion = $_GET['accion'] ?? $_POST['accion'] ?? null;
 switch ($accion) {

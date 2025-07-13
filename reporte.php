@@ -76,9 +76,6 @@ if (!$loginSys->isLoggedIn()) {
                       data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
                       onclick="edit_reporte(${data})"></i>
 
-                    <i class="fa fa-trash text-danger" style="cursor:pointer"
-                      data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"
-                      onclick="delete_reporte(${data})"></i>
                   `;
                         }
                     }
