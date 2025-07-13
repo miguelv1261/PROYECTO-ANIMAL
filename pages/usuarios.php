@@ -41,7 +41,7 @@ if (!$loginSys->isLoggedIn()) {
   </div>
   <script>
     var pre;
-    $(function () {
+    $(function() {
       pre = $('#list-pre').DataTable({
         ajax: "../crud/ajaxusuarios.php?action=listausuarios",
         responsive: true,
@@ -50,41 +50,41 @@ if (!$loginSys->isLoggedIn()) {
         autoWidth: false,
         order: [0, 'asc'],
         columns: [{
-          data: 'id',
-          responsivePriority: 6
-        },
-        {
-          data: 'nombre',
-          responsivePriority: 1
-        },
-        {
-          data: 'correo',
-          responsivePriority: 4
-        },
-        {
-          data: 'telefono',
-          responsivePriority: 5
-        },
-        {
-          data: 'direccion',
-          responsivePriority: 7
-        },
-        {
-          data: 'estado',
-          responsivePriority: 7,
-          render: function (data, type, row) {
-            if (data == 1) {
-              return '<span class="badge bg-success">Habilitado</span>';
-            } else {
-              return '<span class="badge bg-danger">Deshabilitado</span>';
+            data: 'id',
+            responsivePriority: 6
+          },
+          {
+            data: 'nombre',
+            responsivePriority: 1
+          },
+          {
+            data: 'correo',
+            responsivePriority: 4
+          },
+          {
+            data: 'telefono',
+            responsivePriority: 5
+          },
+          {
+            data: 'direccion',
+            responsivePriority: 7
+          },
+          {
+            data: 'estado',
+            responsivePriority: 7,
+            render: function(data, type, row) {
+              if (data == 1) {
+                return '<span class="badge bg-success">Habilitado</span>';
+              } else {
+                return '<span class="badge bg-danger">Deshabilitado</span>';
+              }
             }
-          }
-        },
-        {
-          data: 'tool',
-          responsivePriority: 0,
-          render: function (data, type, row, meta) {
-            return `
+          },
+          {
+            data: 'tool',
+            responsivePriority: 0,
+            render: function(data, type, row, meta) {
+              return `
                     <i class="fa fa-eye text-info me-2" style="cursor:pointer"
                       data-bs-toggle="tooltip" data-bs-placement="top" title="Ver"
                       onclick="view_usuario(${data})"></i>
@@ -97,8 +97,8 @@ if (!$loginSys->isLoggedIn()) {
                       data-bs-toggle="tooltip" data-bs-placement="top" title="Habilitar/Deshabilitar"
                       onclick="delete_usuario(${data})"></i>
                   `;
+            }
           }
-        }
         ],
         dom: 'Bfrtip',
         buttons: [
@@ -108,25 +108,25 @@ if (!$loginSys->isLoggedIn()) {
             extend: 'collection',
             text: '<i class="fa fa-floppy-o"></i> Exportar',
             buttons: [{
-              extend: 'print',
-              title: 'Lista de animales',
-              text: '<i class="fa fa-print"></i> Imprimir'
-            },
-            {
-              extend: 'csvHtml5',
-              title: 'Lista de animales',
-              text: '<i class="fa fa-file-csv"></i> CSV'
-            },
-            {
-              extend: 'pdfHtml5',
-              title: 'Lista de animales',
-              orientation: 'landscape',
-              text: '<i class="fa fa-file-pdf"></i> PDF'
-            }
+                extend: 'print',
+                title: 'Lista de animales',
+                text: '<i class="fa fa-print"></i> Imprimir'
+              },
+              {
+                extend: 'csvHtml5',
+                title: 'Lista de animales',
+                text: '<i class="fa fa-file-csv"></i> CSV'
+              },
+              {
+                extend: 'pdfHtml5',
+                title: 'Lista de animales',
+                orientation: 'landscape',
+                text: '<i class="fa fa-file-pdf"></i> PDF'
+              }
             ]
           }
         ],
-        "initComplete": function () {
+        "initComplete": function() {
           $('#list-pre_wrapper .dt-buttons').after('<div class="btn-group dt-btns"></div>');
           $('#list-pre_wrapper .dt-buttons').append(
             '<a class="btn btn-default buttons-collection" onClick="updatepre()"><i class="fa fa-refresh" ></i></a>'
@@ -148,9 +148,9 @@ if (!$loginSys->isLoggedIn()) {
       $.post("../crud/ajaxusuarios.php", {
         action: "verusuario",
         id: id_animal
-      }).done(function (data) {
+      }).done(function(data) {
         $('#tmp').html(data);
-        setTimeout(function () {
+        setTimeout(function() {
           const modal = new bootstrap.Modal(document.getElementById('Modal-in'));
           modal.show();
         }, 100);
@@ -161,9 +161,9 @@ if (!$loginSys->isLoggedIn()) {
       $.post("../crud/ajaxusuarios.php", {
         action: "nuevousuario",
         id: id_animal
-      }).done(function (data) {
+      }).done(function(data) {
         $('#tmp').html(data);
-        setTimeout(function () {
+        setTimeout(function() {
           const modal = new bootstrap.Modal(document.getElementById('Modal-new'));
           modal.show();
         }, 100);
@@ -174,9 +174,9 @@ if (!$loginSys->isLoggedIn()) {
       $.post("../crud/ajaxusuarios.php", {
         action: "editarusuario",
         id: id_animal
-      }).done(function (data) {
+      }).done(function(data) {
         $('#tmp').html(data);
-        setTimeout(function () {
+        setTimeout(function() {
           const modal = new bootstrap.Modal(document.getElementById('Modal-edit'));
           modal.show();
         }, 100);
@@ -197,7 +197,7 @@ if (!$loginSys->isLoggedIn()) {
           $.post("../crud/ajaxusuarios.php", {
             action: "toggleusuario",
             id: id
-          }, function (response) {
+          }, function(response) {
             updatepre();
             Swal.fire({
               icon: "success",
@@ -210,6 +210,4 @@ if (!$loginSys->isLoggedIn()) {
         }
       });
     }
-
-
   </script>

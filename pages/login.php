@@ -20,8 +20,8 @@ if (isset($_POST["Submit"])) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/logo.jpeg">
-  <link rel="icon" type="image/png" href="../assets/img/logo.jpeg">
+  <link rel="apple-touch-icon" sizes="76x76" href="../img/logo.jpeg">
+  <link rel="icon" type="image/png" href="../img/logo.jpeg">
   <title>
     RescatePet
   </title>
