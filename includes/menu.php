@@ -18,7 +18,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link <?php echo ($current_page == 'dashboard.php') ? 'active' : ''; ?>" href="../pages/dashboard.php">
+                <a class="nav-link <?php echo ($current_page == 'dashboard.php') ? 'active' : ''; ?>" href="../dashboard.php">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
@@ -27,7 +27,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo ($current_page == 'usuarios.php') ? 'active' : ''; ?>" href="../pages/usuarios.php">
+                <a class="nav-link <?php echo ($current_page == 'usuarios.php') ? 'active' : ''; ?>" href="../usuarios.php">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-credit-card text-dark text-sm opacity-10"></i>
@@ -36,7 +36,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo ($current_page == 'animales.php') ? 'active' : ''; ?>" href="../pages/animales.php">
+                <a class="nav-link <?php echo ($current_page == 'animales.php') ? 'active' : ''; ?>" href="../animales.php">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-app text-dark text-sm opacity-10"></i>
@@ -45,7 +45,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo ($current_page == 'reporte.php') ? 'active' : ''; ?>" href="../pages/reporte.php">
+                <a class="nav-link <?php echo ($current_page == 'reporte.php') ? 'active' : ''; ?>" href="../reporte.php">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-app text-dark text-sm opacity-10"></i>
