@@ -5,6 +5,18 @@
                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                </div>
                <ul class="navbar-nav justify-content-end">
+                   <li class="nav-item dropdown">
+                       <a class="nav-link text-white position-relative" href="#" id="notificationDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false" onclick="loadNotifications()">
+                           <i class="fa fa-bell"></i>
+                           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notificationCount">
+                               0
+                           </span>
+                       </a>
+                       <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="notificationDropdown" id="notificationList" style="min-width: 300px;">
+                           <li class="text-center">Cargando notificaciones...</li>
+                       </ul>
+                   </li>
                    <?php if (isset($_SESSION["nombreusername"])): ?>
                        <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle text-white font-weight-bold px-0"
@@ -16,6 +28,7 @@
                                <i class="fa fa-user me-sm-1"></i>
                                <span class="d-sm-inline d-none"><?php echo $_SESSION["nombreusername"]; ?></span>
                            </a>
+
                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                <li>
                                    <a class="dropdown-item" href="#perfil/">
@@ -58,12 +71,63 @@
        const userDropdownToggle = document.getElementById('userDropdown');
        if (userDropdownToggle) {
            userDropdownToggle.addEventListener('click', function(e) {
-               e.preventDefault();
-
                const dropdownMenu = document.querySelector('[aria-labelledby="userDropdown"]');
                if (dropdownMenu) {
                    dropdownMenu.classList.toggle('show');
                }
            });
        }
+
+       window.addEventListener('click', function(e) {
+           if (!userDropdownToggle.contains(e.target) && !document.querySelector('[aria-labelledby="userDropdown"]').contains(e.target)) {
+               const dropdownMenu = document.querySelector('[aria-labelledby="userDropdown"]');
+               if (dropdownMenu) {
+                   dropdownMenu.classList.remove('show');
+               }
+           }
+       });
+   </script>
+   <script>
+       function actualizarNotificaciones() {
+           fetch("../includes/notificaciones_ajax.php")
+               .then(response => response.json())
+               .then(data => {
+                   const notificationCount = document.getElementById("notificationCount");
+                   const notificationList = document.getElementById("notificationList");
+
+                   // Actualizar el contador
+                   if (data.length > 0) {
+                       notificationCount.style.display = 'inline-block';
+                       notificationCount.innerText = data.length;
+                   } else {
+                       notificationCount.style.display = 'none';
+                   }
+
+                   // Actualizar el contenido del dropdown
+                   notificationList.innerHTML = "";
+                   if (data.length === 0) {
+                       notificationList.innerHTML = "<li class='text-center'>Sin notificaciones nuevas</li>";
+                   } else {
+                       data.forEach(notif => {
+                           const li = document.createElement("li");
+                           li.classList.add("dropdown-item");
+                           li.innerHTML = `
+                        <strong>${notif.titulo}</strong><br>
+                        <small>${notif.mensaje}</small><br>
+                        <small class="text-muted">${notif.fecha}</small>
+                    `;
+                           notificationList.appendChild(li);
+                       });
+                   }
+               })
+               .catch(error => {
+                   console.error("Error al obtener notificaciones:", error);
+               });
+       }
+
+       // Actualizar cada 10 segundos
+       setInterval(actualizarNotificaciones, 10000);
+
+       // También al cargar la página
+       actualizarNotificaciones();
    </script>

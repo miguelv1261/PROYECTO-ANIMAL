@@ -9,7 +9,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0"
             target="_blank">
-            <img src="../assets/img/logo.jpeg" width="26px" height="26px" class="navbar-brand-img h-100"
+            <img src="../img/logo.jpeg" width="26px" height="26px" class="navbar-brand-img h-100"
                 alt="main_logo">
             <span class="ms-1 font-weight-bold">RescatePet</span>
         </a>
